@@ -6,7 +6,6 @@
 
   --footer-links-color: rgba(255, 255, 255, 0.6);
 
-  /* --font-bg-color: #ffffff; */
   --icon-color: #afb1b8;
   --icon-bg-color: rgba(255, 255, 255, 0.1);
 
@@ -14,6 +13,8 @@
   --bg-color-secondary: #f5f4fa;
   --bg-color-add: #e5e5e5;
   --bg-color-dark: #2f303a;
+
+  --timing-function: cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 /* remove bullets */
@@ -124,21 +125,24 @@ body {
 .nav-link {
   position: relative;
   color: var(--secondary-color);
+
+  transition: color 250ms var(--timing-function);
 }
 .nav-link:hover,
 .nav-link:focus {
   color: var(--accent-color-primary);
 }
-.nav-link.current {
+.current {
+  position: relative;
   color: var(--accent-color-primary);
 }
-.nav-link.current::after {
+.current::after {
   content: "";
-  display: flex;
+  display: block;
   position: absolute;
   width: 100%;
   height: 4px;
-  top: 77px;
+  bottom: 0;
   background-color: var(--accent-color-primary);
   border-radius: 2px;
 }
@@ -154,6 +158,8 @@ body {
   display: flex;
   align-items: center;
   color: var(--theme-color);
+
+  transition: color 250ms var(--timing-function);
 }
 .authnav-link:hover,
 .authnav-link:focus {
@@ -209,6 +215,8 @@ body {
   letter-spacing: 0.06em;
   background-color: var(--accent-color-primary);
   box-shadow: 0 4px 4px rgba(0, 0, 0, 0.15);
+  transition: background-color 250ms var(--timing-function),
+    box-shadow 250ms var(--timing-function);
 }
 .hero .button:hover,
 .hero .button:focus {
@@ -366,12 +374,14 @@ body {
   background-position: center;
   background-repeat: no-repeat;
   fill: var(--icon-color);
+  border-radius: 50%;
+  transition: background-color 250ms var(--timing-function),
+    fill 250ms var(--timing-function);
 }
 .social-link:hover,
 .social-link:focus {
   background-color: var(--accent-color-primary);
   fill: var(--bg-color-primary);
-  border-radius: 50%;
 }
 
 /* clients section */
@@ -403,6 +413,8 @@ body {
   fill: var(--icon-color);
   border: 1px solid #afb1b8;
   border-radius: 4px;
+  transition: fill 250ms var(--timing-function),
+    border 250ms var(--timing-function);
 }
 .client:not(:last-child) {
   margin-right: 30px;
@@ -433,6 +445,9 @@ body {
   color: var(--secondary-color);
   background-color: var(--bg-color-secondary);
   border: 0;
+  transition: color 250ms var(--timing-function),
+    background-color 250ms var(--timing-function),
+    box-shadow 250ms var(--timing-function);
 }
 .filter .button:hover,
 .filter .button:focus {
@@ -450,6 +465,7 @@ body {
 .project-item {
   display: flex;
   width: calc((100% - 60px) / 3);
+  transition: box-shadow 250ms var(--timing-function);
 }
 .project-item:not(:nth-child(3n)) {
   margin-right: 30px;
@@ -463,9 +479,6 @@ body {
     1px 4px 6px rgba(0, 0, 0, 0.16);
 }
 /* Project item overlay */
-.project-item:hover .item-text {
-  opacity: 1;
-}
 .item-thumb {
   position: relative;
 }
@@ -476,9 +489,14 @@ body {
   height: 100%;
   top: 50%;
   left: 50%;
-  transform: translate(-50%, -50%);
+  transform: translate(-50%, 50%);
   opacity: 0;
   background-color: rgba(33, 150, 243, 0.9);
+  overflow: hidden;
+}
+.project-item:hover .item-text {
+  opacity: 1;
+  /* transform: translateY(50%, 50%); */
 }
 .item-text > p {
   margin-top: 0;
@@ -560,6 +578,7 @@ body {
   background-color: var(--icon-bg-color);
   fill: var(--bg-color-primary);
   border-radius: 50%;
+  transition: background-color 250ms var(--timing-function);
 }
 .social-item .link-item:hover,
 .social-item .link-item:focus {
@@ -568,12 +587,16 @@ body {
 /* Backdrop*/
 .backdrop {
   position: fixed;
-  display: flex;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
   background-color: rgba(0, 0, 0, 0.2);
+}
+.backdrop.is-hidden {
+  visibility: hidden;
+  opacity: 0;
+  pointer-events: none;
 }
 .modal {
   position: absolute;
@@ -596,8 +619,9 @@ body {
   border: 1px solid rgba(0, 0, 0, 0.1);
   border-radius: 50%;
   fill: rgba(0, 0, 0, 1);
-  /* align-items: center;
-  justify-content: center;
-  background-position: center;
-  background-repeat: no-repeat; */
+  cursor: pointer;
 }
+/*@keyframes  
+.close:hover,
+.close:hover {
+} */ ;
